@@ -344,8 +344,7 @@ See https://github.com/jojojames/dired-sidebar/issues/43."
 
 This has other windows retain their size."
   :type 'boolean
-  :group 'dired-sidebar
-  )
+  :group 'dired-sidebar)
 
 ;; Internal
 
