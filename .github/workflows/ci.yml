@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        emacs_version:
+          - 25.1
+          - snapshot
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Emacs
+      uses: purcell/setup-emacs@master
+      with:
+        version: ${{ matrix.emacs_version }}
+
+    - name: Install Cask
+      uses: cask/setup-cask@master
+      with:
+        version: 'snapshot'
+
+    - name: Install dependencies
+      run: cask install
+
+    - name: Run compile
+      run: make compile
+
+    - name: Run lint
+      run: make lint
+
+    - name: Run tests
+      run: make test
